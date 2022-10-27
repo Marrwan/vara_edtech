@@ -56,8 +56,8 @@ export default class AddressController implements Controller {
     private async  modifyAddress (request: Request, response: Response)  {
         try{
         const id: number = parseInt(request.params.id);
-        const {city, province,zip,house} = request.body;
-        const AddressData = {city, province,zip,house};
+        const {customerId,city, province,zip,house} = request.body;
+        const AddressData = {customerId,city, province,zip,house};
         const updateAddress = await AddressService.modifyAddress(id, AddressData);
         response.send(updateAddress);
         } catch (error : any) {

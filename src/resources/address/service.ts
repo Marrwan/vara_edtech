@@ -52,6 +52,7 @@ export default class AddressService {
     };
     
     public static modifyAddress = async (id: number, AddressData: any) => {
+        try{
         const address = await prisma.address.findUnique({
             where: {
                 id,
@@ -59,6 +60,15 @@ export default class AddressService {
             });
             if(!address) {
             throw new Error('Address not found')
+            }
+            const {customerId} = AddressData;
+            const customer = await prisma.customer.findUnique({
+                where: {
+                    id: Number(customerId),
+                },
+            });
+            if(!customer) {
+                throw new Error('Customer not found')
             }
         const updateAddress = await prisma.address.update({
         where: {
@@ -69,6 +79,10 @@ export default class AddressService {
         },
         });
         return updateAddress;
+        } catch (error : any) {
+        throw new Error(error.message)
+        }
+        
     };
     
     public static deleteAddress = async (id: number) => {

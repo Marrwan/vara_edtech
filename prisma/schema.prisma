@@ -26,3 +26,4 @@ model customer {
 
   @@unique(fields: [email,phone], name: "identifier")
 }
+

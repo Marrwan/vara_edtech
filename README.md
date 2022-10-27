@@ -7,25 +7,36 @@ This  shows a solution to the to the coding exercise given by VARA EDTECH and ho
 ### 1. Clone the repo and install dependencies
 
 
-<strong> Clone the entire repo</summary>
 
 Clone this repository:
 
 ```
-git clone git@github.com:prisma/prisma-examples.git --depth=1
+git clone https://github.com/Marrwan/vara_edtech.git
 ```
 
 Install npm dependencies:
 
 ```
-cd prisma-examples/typescript/rest-express
+cd vara
 npm install
 ```
 
 
-### 2. Create and seed the database
+### 2. Enviroment variables
 
-Run the following command to create your SQLite database file. This also creates the `User` and `Post` tables that are defined in [`prisma/schema.prisma`](./prisma/schema.prisma):
+Create a `.env` file in the root of the project and add the following variables:
+
+```
+DATABASE_URL="mysql://root:password@localhost:3306/vara"
+NODE_ENV="development"
+PORT=4000
+```
+Or you can copy it from the `.env.example` file.
+
+
+### 3. Create and seed the database
+
+Run the following command to create your SQLite database file. This also creates the `Customer` and `Address` tables that are defined in [`prisma/schema.prisma`](./prisma/schema.prisma):
 
 ```
 npx prisma migrate dev --name init

@@ -39,6 +39,15 @@ export default class AddressService {
             if(!customer) {
                 throw new Error('Customer not found')
             }
+            const address = await prisma.address.findUnique({
+                where: {
+                    customerId: Number(customerId),
+                },
+            });
+            if(address) {
+                throw new Error('The particular customer already has an address')
+            }
+
 
         const newAddress = await prisma.address.create({
         data: {

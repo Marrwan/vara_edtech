@@ -4,7 +4,8 @@ const prisma = new PrismaClient()
 export default class CustomerService {
   public static getAllCustomers = async () => {
     try {
-      const customers = await prisma.customer.findMany();
+      const customers = await prisma.customer.findMany( {include : {address : true}});
+      
     return customers;
     } catch (error : any) {
       throw new Error(error.message)
@@ -18,6 +19,7 @@ export default class CustomerService {
       where: {
         id,
       },
+      include : {address : true}
     });
     if(!customer) {
       throw new Error('Customer not found')
@@ -69,12 +71,26 @@ export default class CustomerService {
   };
 
   public static deleteCustomer = async (id: number) => {
+    const customer  = await prisma.customer.findUnique({
+      where: {
+        id,
+      },
+    })
+
+    if(!customer) {
+      throw new Error('Customer not found')
+    }
+    
+  // Delete a customer by its id and its related address
     const deleteCustomer = await prisma.customer.delete({
       where: {
         id,
       },
+      include : {address : true}
     });
     return deleteCustomer;
+    
+    
   };
 }
 

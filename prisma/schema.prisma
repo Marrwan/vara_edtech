@@ -14,7 +14,7 @@ model address {
   zip        String
   house      String
   customerId Int      @unique(map: "Address_customerId_key")
-  customer   customer @relation(fields: [customerId], references: [id], map: "Address_customerId_fkey")
+  customer   customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
 }
 
 model customer {
@@ -22,7 +22,7 @@ model customer {
   name    String
   email   String  
   phone   String   
-  address address?
+  address address? 
 
   @@unique(fields: [email,phone], name: "identifier")
 }

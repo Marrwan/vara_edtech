@@ -29,7 +29,7 @@ export default class CustomerController implements Controller {
 
   private  async getCustomerById  (request: Request, response: Response){
     try{
-    const id: number = parseInt(request.params.id);
+    const id: number = Number(request.params.id);
 
     const Customer = await CustomerService.getCustomerById(id);
     response.send(Customer);
@@ -60,7 +60,7 @@ export default class CustomerController implements Controller {
 
   private async modifyCustomer (request: Request, response: Response)  {
     try{
-    const id: number = parseInt(request.params.id);
+    const id: number = Number(request.params.id);
     const {name,email,phone} = request.body;
     const CustomerData = {name,email,phone};
     const updateCustomer = await CustomerService.modifyCustomer(id, CustomerData);
@@ -73,8 +73,8 @@ export default class CustomerController implements Controller {
 
   private async deleteCustomer(request: Request, response: Response) {
     try {
-    const id: number = parseInt(request.params.id);
-    await CustomerService.deleteCustomer(id);
+    const id: number = Number(request.params.id);
+    return await CustomerService.deleteCustomer(id);
     response.send(200).send({ status: "success", message: "Customer deleted" });
   } catch (error : any) {
       return response.status(400).json({status: 'error',message: error.message});

@@ -82,14 +82,14 @@ export default class CustomerService {
     }
     
   // Delete a customer by its id and its related address
-    const deleteCustomer = await prisma.customer.delete({
+ const deleteCustomer =  await prisma.customer.delete({
       where: {
         id,
       },
       include : {address : true}
     });
+ 
     return deleteCustomer;
-    
     
   };
 }

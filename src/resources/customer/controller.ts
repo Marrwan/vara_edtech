@@ -74,10 +74,13 @@ export default class CustomerController implements Controller {
   private async deleteCustomer(request: Request, response: Response) {
     try {
     const id: number = Number(request.params.id);
-    return await CustomerService.deleteCustomer(id);
-    response.send(200).send({ status: "success", message: "Customer deleted" });
+   const deleteCustomer =  await CustomerService.deleteCustomer(id);
+   if(deleteCustomer){
+    return response.status(200).json({status: 'success',message: 'Customer deleted successfully', data: deleteCustomer});
+   }
+   return response.send(200).send({ status: "success", message: "Customer deleted" });
   } catch (error : any) {
-      return response.status(400).json({status: 'error',message: error.message});
+      return response.status(400).json({status: 'error',message: `ERORR : ${error.message}`});
     }
   };
 
